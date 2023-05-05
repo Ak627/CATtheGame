@@ -40,7 +40,7 @@ class player:
         #health bar
         if self.hp > 60: 
             pygame.draw.rect(screen, (0, 255, 0), (20, 20, self.hp, 20))
-        elif self.hp > 20:
+        elif self.hp > 40:
             pygame.draw.rect(screen, (255, 255, 0), (20, 20, self.hp, 20))
         elif self.hp > 20:
             pygame.draw.rect(screen, (255, 0, 0), (20, 20, self.hp, 20))    
