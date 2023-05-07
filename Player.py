@@ -3,6 +3,9 @@ LEFT = 0
 RIGHT = 1
 
 
+Super = pygame.image.load("SuperCat.png")
+Super.set_colorkey((255,255,255))
+
 class player:
     def __init__(self):
         self.xpos = 250
@@ -11,22 +14,41 @@ class player:
         self.isAlive = True
         self.hp = 100
         self.lives = 3
+        
+        self.movingx = False
+        #animation variables variables
+        self.frameWidth = 27
+        self.frameHeight = 49
+        self.RowNum = 0 #for left animation, this will need to change for other animations
+        self.frameNum = 0
+        self.ticker = 0
+        
     def move(self, keys):        
         if keys[LEFT] == True:
             self.vx = -5
+            self.movingx = True
         elif keys[RIGHT] ==True:
             self.vx = 5
+            self.movingx = True
         else:
             self.vx = 0
             
         self.xpos += self.vx
     def collide(self, Ox, Oy, width, height, Bottom):
         #collision
-        if self.ypos >= Oy and self.ypos <= Oy + height and self.xpos >= Ox and self.xpos <= Ox + width:
+        if self.ypos + self.frameHeight >= Oy and self.ypos <= Oy + height and self.xpos + self.frameWidth >= Ox and self.xpos <= Ox + width:
             self.hp -= 10
-            print(self.hp)
+#             print(self.hp)
             Bottom = True
+        #check the sides of the screen to see if we're within the bounds
+        if self.xpos + self.frameWidth >= 500:
+            self.xpos = 500 - self.frameWidth
+        if self.xpos <= 0:
+            self.xpos =0 
         #losing a life
+            
+        if self.hp >= 100:
+            self.hp = 100
         if self.hp <= 0:
             pygame.time.wait(1000)
             self.isAlive = False
@@ -35,18 +57,30 @@ class player:
             self.ypos = 575
             self.hp = 100
             self.isAlive = True
+            
         return Bottom
+    
     def draw(self, screen):
+        #animation
+        if self.movingx == True: #animate when moving
+            self.ticker+=1
+        if self.ticker % 10 == 0: #only change frames every 10 ticks
+          self.frameNum+=1
+        if self.frameNum > 2: 
+           self.frameNum = 0
+        
+        
         #health bar
         if self.hp > 60: 
             pygame.draw.rect(screen, (0, 255, 0), (20, 20, self.hp, 20))
-        elif self.hp > 40:
+        elif self.hp > 30:
             pygame.draw.rect(screen, (255, 255, 0), (20, 20, self.hp, 20))
-        elif self.hp > 20:
+        elif self.hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (20, 20, self.hp, 20))    
-        pygame.draw.rect(screen, (0,0,0), (20, 20, 100, 20), 2)
+        pygame.draw.rect(screen, (0,0,0), (20, 20, 100, 20), 5)
         
-        
+        #draws player if they are alive
         if self.isAlive == True:
-            pygame.draw.rect(screen, (0, 255, 0), (self.xpos, self.ypos, 50, 50))
+            #pygame.draw.rect(screen, (0, 255, 0), (self.xpos, self.ypos, 50, 50))
+            screen.blit(Super, (self.xpos, self.ypos), (self.frameWidth * self.frameNum, self.RowNum * self.frameHeight, self.frameWidth, self.frameHeight))
         
