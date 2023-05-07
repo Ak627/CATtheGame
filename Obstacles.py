@@ -27,4 +27,5 @@ class obstacles:
             self.atBottom = False
             
     def draw(self, screen):
-        pygame.draw.rect(screen, (255, 0, 0), (self.xpos, self.ypos, self.width, self.height), 5)
+        pygame.draw.rect(screen, (255, 0, 0), (self.xpos, self.ypos, self.width, self.height))
+
