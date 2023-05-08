@@ -66,6 +66,7 @@ while not gameover:
         score = coins[i].collide(p1.xpos, p1.ypos, p1.frameHeight, p1.frameWidth, score)
      
     if p1.lives == 0:
+        print("You died :(")
         gameover = True
         
     #render section ------------------------------------------------------------------------
