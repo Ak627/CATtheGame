@@ -1,9 +1,10 @@
 import pygame
+import time
 from Player import player
 from Obstacles import obstacles
 from hpPack import HealthPack
 from coin import Coin
-
+from ScrollingB import BG
 #screen setup
 pygame.init()
 pygame.display.set_caption("Cool Cat Game")
@@ -30,7 +31,9 @@ for i in range(10):
 coins = []
 for i in range(2):
     coins.append(Coin())
-    
+
+
+back = BG()
 while not gameover:
     clock.tick(60)
     
@@ -52,6 +55,7 @@ while not gameover:
     #physics section --------------------------------------------------------------
     p1.move(keys)
     hp.move()
+    back.move()
     for i in range(len(obst)):
         obst[i].move()
         obst[i].atBottom = p1.collide(obst[i].xpos, obst[i].ypos, obst[i].width, obst[i].height, obst[i].atBottom)
@@ -65,7 +69,8 @@ while not gameover:
         gameover = True
         
     #render section ------------------------------------------------------------------------
-    screen.fill((0, 100, 100))
+    screen.fill((153, 217, 234))
+    back.draw(screen)
     p1.draw(screen)
     hp.draw(screen)
     for i in range(len(obst)):
@@ -79,5 +84,10 @@ while not gameover:
     text = font.render(str("Score: "),1, (255, 48, 55))
     screen.blit(text, (360,25))
     
+    
+    if score >= 40:
+        print("YOU WIN!!")
+        gameover = True
+            
     pygame.display.flip()
 pygame.quit()
