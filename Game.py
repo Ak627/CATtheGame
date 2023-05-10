@@ -5,6 +5,7 @@ from Obstacles import obstacles
 from hpPack import HealthPack
 from coin import Coin
 from ScrollingB import BG
+import SplashScreens
 #screen setup
 pygame.init()
 pygame.display.set_caption("Cool Cat Game")
@@ -29,11 +30,14 @@ for i in range(10):
     obst.append(obstacles())
     
 coins = []
-for i in range(2):
+for i in range(3):
     coins.append(Coin())
 
 
 back = BG()
+
+
+SplashScreens.PlayIntro(screen)
 while not gameover:
     clock.tick(60)
     
