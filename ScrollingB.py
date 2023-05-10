@@ -22,12 +22,12 @@ class BG:
         
         
         if self.ypos2 >= 0 or self.ypos2 < 0:
-            self.vy2 = 14
+            self.vy2 = 10
         if self.ypos2 > 700:
             self.ypos2 = -700
             
         if self.ypos3 >= 0 or self.ypos3 < 0:
-            self.vy3 = 14
+            self.vy3 = 10
         if self.ypos3 > 700:
             self.ypos3 = -700
             
