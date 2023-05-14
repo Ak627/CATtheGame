@@ -1,9 +1,9 @@
 import pygame
 import random
-
+pygame.mixer.init()
 Health = pygame.image.load("Health.png")
-Health.set_colorkey((255,255,255))
 
+heal = pygame.mixer.Sound('Heal.wav')
 class HealthPack:
     def __init__(self):
         self.x = random.randrange(0, 475)
@@ -36,6 +36,7 @@ class HealthPack:
         if Py + Ph >= self.y and Py <= self.y + self.height and Px + Pw >= self.x and Px <= self.x + self.width:
             if health < 100:
                 if self.isAlive == True:
+                    pygame.mixer.Sound.play(heal)
                     health += 14
                     self.y = 0
                     self.isAlive = False

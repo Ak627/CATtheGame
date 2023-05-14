@@ -1,8 +1,11 @@
 import pygame
 import random
+pygame.mixer.init()
+
 
 c = pygame.image.load("Coin.png")
 c.set_colorkey((255,255,255))
+collect = pygame.mixer.Sound('collect.wav')
 
 class Coin:
     def __init__(self):
@@ -34,6 +37,7 @@ class Coin:
     def collide(self, Px, Py, Pw, Ph, score):
         if Py + Ph >= self.ypos and Py <= self.ypos + self.height and Px + Pw >= self.xpos and Px <= self.xpos + self.width:
             if self.isAlive == True:
+                pygame.mixer.Sound.play(collect)
                 score += 1
                 self.ypos = 0
                 self.isAlive = False

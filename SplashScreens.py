@@ -7,12 +7,17 @@ title = pygame.image.load(r'title.png')
 title_size = title.get_rect().size
 
 
+
 def PlayIntro(screen):
+    
+    music = pygame.mixer.music.load('TitleMusic.mp3')
+    pygame.mixer.music.play(-1)
     ticker = 0
     frameNum = 0
     RowNum = 0
     width = 500
     height = 700
+
     for x in range(255):
         screen.fill((0,0,0))
         back.set_alpha(x)    
@@ -34,6 +39,18 @@ def PlayIntro(screen):
             frameNum = 0
         screen.fill((0,0,0))
         title.set_alpha(x)    
+        screen.blit(title, (0,0),(width * frameNum, RowNum * height, width, height))   
+        pygame.display.flip()
+        time.sleep(10 / 1000)
+    for x in range(150):
+        if x <= 255:
+            ticker += 1
+        if ticker%50 == 0:
+            frameNum += 1
+        if frameNum > 1:
+            frameNum = 0
+        screen.fill((0,0,0))
+        title.set_alpha(255)    
         screen.blit(title, (0,0),(width * frameNum, RowNum * height, width, height))   
         pygame.display.flip()
         time.sleep(10 / 1000)

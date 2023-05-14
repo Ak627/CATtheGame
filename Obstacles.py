@@ -1,7 +1,6 @@
 import pygame
-
-
 import random
+
 
 class obstacles:
     def __init__(self):

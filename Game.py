@@ -6,6 +6,7 @@ from hpPack import HealthPack
 from coin import Coin
 from ScrollingB import BG
 import SplashScreens
+import End
 #screen setup
 pygame.init()
 pygame.display.set_caption("Cool Cat Game")
@@ -13,6 +14,7 @@ screen = pygame.display.set_mode((500, 700))
 screen.fill((0,0,0))
 clock = pygame.time.Clock()
 
+collect = pygame.mixer.Sound('collect.wav')
 
 #game variables
 score = 0
@@ -69,9 +71,7 @@ while not gameover:
         coins[i].move()
         score = coins[i].collide(p1.xpos, p1.ypos, p1.frameHeight, p1.frameWidth, score)
      
-    if p1.lives == 0:
-        print("You died :(")
-        gameover = True
+    
         
     #render section ------------------------------------------------------------------------
     screen.fill((153, 217, 234))
@@ -89,9 +89,12 @@ while not gameover:
     text = font.render(str("Score: "),1, (255, 48, 55))
     screen.blit(text, (360,25))
     
-    
-    if score >= 40:
-        print("YOU WIN!!")
+    if p1.lives == 0:
+        End.end('L')
+        gameover = True
+        
+    if score >= 20:
+        End.end('W')
         gameover = True
             
     pygame.display.flip()
